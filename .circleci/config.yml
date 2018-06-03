@@ -38,8 +38,12 @@ jobs:
           ./emsdk install latest
           ./emsdk activate latest
           popd
+          wget https://nodejs.org/dist/v10.3.0/node-v10.3.0-linux-x64.tar.xz
+          tar -xf node-v10.3.0-linux-x64.tar.xz
+          echo NODE_JS="'~/node-v10.3.0-linux-x64/bin/node'" >> .emscripten
           echo EMSCRIPTEN_ROOT="'~/emscripten/'" >> .emscripten
           echo BINARYEN_ROOT="''" >> .emscripten
+          cat .emscripten
           EMCC_CORES=4 python3 emscripten/embuilder.py build ALL
           python3 emscripten/tests/runner.py test_hello_world
           mkdir tmp-firefox-profile/
